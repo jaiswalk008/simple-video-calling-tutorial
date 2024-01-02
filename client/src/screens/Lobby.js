@@ -15,9 +15,14 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
         const handleSubmitForm = useCallback((e) =>{
             e.preventDefault();
             // console.log(email ,room)
+            /*This line emits a 'room:join' event from the client to the server.
+            The second argument, { email, room }, is an object containing data that
+            is sent along with the event. */
             socket.emit('room:join' , {email ,room})
         },[email , room , socket])
 
+        /* a listener for the 'room:join' event is added to the socket object. 
+        When the server emits a 'room:join' event, the handlerJoinRoom function is called. */
         useEffect(()=>{
             socket.on('room:join',handlerJoinRoom);
             return () =>{
